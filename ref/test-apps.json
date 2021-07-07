@@ -1,0 +1,127 @@
+[
+	{
+		"type": "container",
+		"title": "DataApp-Provider",
+		"description": "A simple data provider app to test IDS connector data flow. This app generates a random message and provides a JSON message output",
+		"note": "Endpoint: GET to <hostname>:11102",
+		"categories": [
+			"webserver",
+			"IdsPOC",
+			"TestApp",
+			"Provider"
+		],
+		"platform": "linux",
+		"logo": "https://raw.githubusercontent.com/ashokkumarta/ids-dataapps-sample/main/ref/test_logo.jpg",
+		"image": "ashokkumarta/test_provider",
+		"ports": [
+		"11102/tcp"
+		]
+	},
+	{
+		"type": "container",
+		"title": "DataApp-Consumer",
+		"description": "A simple data consumer app to test IDS connector data flow. This app just stores the message received in in-memory cache and returns unique id of the stored reference",
+		"note": "Endpoint: POST to <hostname>:11103",
+		"categories": [
+			"webserver",
+			"IdsPOC",
+			"TestApp",
+			"Consumer"
+		],
+		"platform": "linux",
+		"logo": "https://raw.githubusercontent.com/ashokkumarta/ids-dataapps-sample/main/ref/test_logo.jpg",
+		"image": "ashokkumarta/test_consumer",
+		"ports": [
+		"11103/tcp"
+		]
+	},
+	{
+		"type": "container",
+		"title": "DataApp-Processor",
+		"description": "A simple data processor app to test IDS connector data flow. This app just adds an attribute to indicate that the data passed through it",
+		"note": "Endpoint: PUT to <hostname>:11104",
+		"categories": [
+			"webserver",
+			"IdsPOC",
+			"TestApp",
+			"Processor"
+		],
+		"platform": "linux",
+		"logo": "https://raw.githubusercontent.com/ashokkumarta/ids-dataapps-sample/main/ref/test_logo.jpg",
+		"image": "ashokkumarta/test_processor",
+		"ports": [
+		"11104/tcp"
+		]
+	},
+	{
+		"type": "container",
+		"title": "DataApp-Auditor",
+		"description": "A simple data auditor app to test IDS connector data flow. This app just adds an attribute to indicate that the data passed through it",
+		"note": "Endpoint: PUT to <hostname>:11105",
+		"categories": [
+			"webserver",
+			"IdsPOC",
+			"TestApp",
+			"Auditor"
+		],
+		"platform": "linux",
+		"logo": "https://raw.githubusercontent.com/ashokkumarta/ids-dataapps-sample/main/ref/test_logo.jpg",
+		"image": "ashokkumarta/test_auditor",
+		"ports": [
+		"11105/tcp"
+		]
+	},
+	{
+		"type": "container",
+		"title": "DataApp-Encryptor",
+		"description": "A simple data encryptor app to test IDS connector data flow. This app just adds an attribute to indicate that the data passed through it",
+		"note": "Endpoint: PUT to <hostname>:11106",
+		"categories": [
+			"webserver",
+			"IdsPOC",
+			"TestApp",
+			"Encryptor"
+		],
+		"platform": "linux",
+		"logo": "https://raw.githubusercontent.com/ashokkumarta/ids-dataapps-sample/main/ref/test_logo.jpg",
+		"image": "ashokkumarta/test_encryptor",
+		"ports": [
+		"11106/tcp"
+		]
+	},
+	{
+		"type": "container",
+		"title": "DataApp-Validator",
+		"description": "A simple data validator app to test IDS connector data flow. This app just adds an attribute to indicate that the data passed through it",
+		"note": "Endpoint: PUT to <hostname>:11107",
+		"categories": [
+			"webserver",
+			"IdsPOC",
+			"TestApp",
+			"Validator"
+		],
+		"platform": "linux",
+		"logo": "https://raw.githubusercontent.com/ashokkumarta/ids-dataapps-sample/main/ref/test_logo.jpg",
+		"image": "ashokkumarta/test_validator",
+		"ports": [
+		"11107/tcp"
+		]
+	},
+	{
+		"type": "container",
+		"title": "DataApp-Generic",
+		"description": "A simple data app to test IDS connector data flow. This app can be used as a provider, consumer and processor",
+		"note": "Endpoint: GET, POST, PUT to <hostname>:11111",
+		"categories": [
+			"webserver",
+			"IdsPOC",
+			"TestApp",
+			"Generic"
+		],
+		"platform": "linux",
+		"logo": "https://raw.githubusercontent.com/ashokkumarta/ids-dataapps-sample/main/ref/test_logo.jpg",
+		"image": "ashokkumarta/test_generic",
+		"ports": [
+		"11111/tcp"
+		]
+	}]
