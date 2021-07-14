@@ -73,7 +73,7 @@ public class IDSDataAppSample extends CommonBase {
 		}
 
 		String path = request.getRequestURI();
-		logger.info("Received request for: {}", path);
+		logger.debug("Received request for: {}", path);
 
 		return ok(parseAll(msgProvider));
 	}
@@ -88,9 +88,9 @@ public class IDSDataAppSample extends CommonBase {
 
 		String path = request.getRequestURI();
 
-		logger.info("Received request for: {}", path);
-		logger.info("With parameters: {}", params);
-		logger.info("With message: {}", input);
+		logger.debug("Received request for: {}", path);
+		logger.debug("With parameters: {}", params);
+		logger.debug("With message: {}", input);
 
 		String uniqId = getUniqID();
 		_CONSUMER_STORE.put(uniqId, input);
@@ -105,7 +105,7 @@ public class IDSDataAppSample extends CommonBase {
 		response = ok(parsedMsg, input);
 
 		logger.debug("Completed processing.");
-		logger.info("Response: {}", response);
+		logger.debug("Response: {}", response);
 		return response;
 	}
 
@@ -119,16 +119,16 @@ public class IDSDataAppSample extends CommonBase {
 
 		String path = request.getRequestURI();
 
-		logger.info("Received request for: {}", path);
-		logger.info("With parameters: {}", params);
-		logger.info("With message: {}", input);
+		logger.debug("Received request for: {}", path);
+		logger.debug("With parameters: {}", params);
+		logger.debug("With message: {}", input);
 
 		logger.debug("Processing...");
 		ResponseEntity<String> response = ok(input);
 		;
 		logger.debug("Completed processing.");
 
-		logger.info("Response: {}", response);
+		logger.debug("Response: {}", response);
 		return response;
 	}
 
@@ -155,15 +155,15 @@ public class IDSDataAppSample extends CommonBase {
 			try {
 				JSONObject inputJson = new JSONObject(inputMsg);
 				responseJson.put(APP_PIPELINE_PARAM, inputJson.getJSONArray(APP_PIPELINE_PARAM));
-				logger.info("Message after adding previous trail: {}", responseJson);
+				logger.debug("Message after adding previous trail: {}", responseJson);
 			} catch (JSONException jex) {
-				logger.info("No previous trail...");
+				logger.debug("No previous trail...");
 			}
 		}
 
 		logger.debug("Adding trail...");
 		responseJson.append(APP_PIPELINE_PARAM, appName);
-		logger.info("Message after adding trail: {}", responseJson);
+		logger.debug("Message after adding trail: {}", responseJson);
 		return responseJson.toString();
 	}
 
