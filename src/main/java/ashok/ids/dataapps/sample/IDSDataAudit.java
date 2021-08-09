@@ -16,7 +16,6 @@ import ashok.ids.dataapps.common.CommonBase;
 @Component
 public class IDSDataAudit extends CommonBase {
 
-	private DefaultHttpClient httpclient;
 
 	@Value("${audit.url}")
 	private String auditUrl;
@@ -27,13 +26,13 @@ public class IDSDataAudit extends CommonBase {
 	private final String CONTENT_TYPE = "application/json";
 
 	public IDSDataAudit() {
-		httpclient = new DefaultHttpClient();
 	}
 
 	public void audit(String data) throws IOException {
 		
 		logger.info("Sending for audit: {}",data);
 
+		DefaultHttpClient httpclient = new DefaultHttpClient();
 		HttpPost post = new HttpPost(auditUrl);
 		post.setHeader(HttpHeaders.CONTENT_TYPE, CONTENT_TYPE);
 		post.setHeader(HttpHeaders.AUTHORIZATION, authToken);
@@ -41,6 +40,7 @@ public class IDSDataAudit extends CommonBase {
 		StringEntity body = new StringEntity(data);
 
 		HttpResponse response = httpclient.execute(post);
+		httpclient.getConnectionManager().shutdown();
 		logger.info("Audit successful for: {}",data);
 	}
 }

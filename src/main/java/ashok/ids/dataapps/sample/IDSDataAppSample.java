@@ -174,6 +174,10 @@ public class IDSDataAppSample extends CommonBase {
 	}
 
 	private String parse(final String msgTpl, String key, String val) {
+		if(null == key || null == val) {
+			logger.debug("Skipping parse with key:{}, val:{}", key, val);
+			return msgTpl;
+		}
 		return msgTpl.replaceAll(key, val);
 	}
 
