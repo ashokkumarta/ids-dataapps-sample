@@ -31,7 +31,11 @@ public abstract class CommonBase {
 	public static final String EMPTY = "";
 	public static final String ADMIN_RUN_MODE = "admin";
 
-	
+	public static final String UNIQ_ID = "\\$uuid";
+	public static final String TIME = "\\$time";
+	public static final String SECRET = "\\$secret";
+
+	protected CommonStore store = new CommonStore();
 
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -149,14 +153,23 @@ public abstract class CommonBase {
 	}
 
 	protected String getTime() {
-		return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date());
+		if (EMPTY.equals(store.get(TIME))) {
+			store.set(TIME, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()));
+		}
+		return store.get(TIME);
 	}
 	
 	protected String getUniqID() {
-		return UUID.randomUUID().toString();
+		if (EMPTY.equals(store.get(UNIQ_ID))) {
+			store.set(UNIQ_ID, UUID.randomUUID().toString());
+		}
+		return store.get(UNIQ_ID);
 	}
 
 	protected String getSecret() {
-		return RandomStringUtils.randomAlphanumeric(256);
+		if (EMPTY.equals(store.get(SECRET))) {
+			store.set(SECRET, RandomStringUtils.randomAlphanumeric(256));
+		}
+		return store.get(SECRET);
 	}
 }

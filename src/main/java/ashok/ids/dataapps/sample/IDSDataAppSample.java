@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ashok.ids.dataapps.common.CommonBase;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,19 +48,48 @@ public class IDSDataAppSample extends CommonBase {
 	@Value("${msg.error}")
 	private String msgError;
 
+	@Value("${app.provider.name}")
+	private String appProviderName;
+	@Value("${app.consumer.name}")
+	private String appConsumerName;
+	@Value("${app.processor.name}")
+	private String appProcessorName;
+	
+
+	@Value("${app.provider.policy}")
+	private String appProviderPolicy;
+	@Value("${app.consumer.policy}")
+	private String appConsumerPolicy;
+	@Value("${app.processor.policy}")
+	private String appProcessorPolicy;
+	
+	@Value("${msg.provider.audit}")
+	private Boolean msgProviderAudit;
+	@Value("${msg.provider.audit.msg}")
+	private String msgProviderAuditMsg;
+
 	private static final String APP_NAME = "\\$app.name";
 	private static final String APP_TYPE = "\\$app.type";
-	private static final String UNIQ_ID = "\\$uuid";
-	private static final String TIME = "\\$time";
-	private static final String SECRET = "\\$secret";
+
+	private static final String APP_PROVIDER_NAME = "\\$app.provider.name";
+	private static final String APP_PROVIDER_POLICY = "\\$app.provider.policy";
+
+	private static final String APP_CONSUMER_NAME = "\\$app.consumer.name";
+	private static final String APP_CONSUMER_POLICY = "\\$app.consumer.policy";
+
+	private static final String APP_PROCESSOR_NAME = "\\$app.processor.name";
+	private static final String APP_PROCESSOR_POLICY = "\\$app.processor.policy";
 
 	private static final String APP_PIPELINE_PARAM = "_PROCESSED_THROUGH_";
 
 	private static final String PROVIDER = "provider";
 	private static final String CONSUMER = "consumer";
 	private static final String PROCESSOR = "processor";
-
+	
 	private static Map<String, String> _CONSUMER_STORE = new HashMap<>();
+	
+	@Autowired
+	private IDSDataAudit auditor;
 
 	@GetMapping(path = { "/help" }, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> help() {
@@ -74,8 +105,18 @@ public class IDSDataAppSample extends CommonBase {
 
 		String path = request.getRequestURI();
 		logger.debug("Received request for: {}", path);
+		
+		String msgResponse = parseAll(msgProvider);
+		if(msgProviderAudit) {
+			logger.info("Audit enabled");
+			try {
+				auditor.audit(parseAll(msgProviderAuditMsg));
+			} catch (IOException e) {
+				logger.warn("Unable to audit the transaction");
+			}
+		}
 
-		return ok(parseAll(msgProvider));
+		return ok(msgResponse);
 	}
 
 	@PostMapping(path = { "/**" }, consumes = MediaType.TEXT_PLAIN_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -143,9 +184,16 @@ public class IDSDataAppSample extends CommonBase {
 		parsedMsg = parse(parsedMsg, TIME, getTime());
 		parsedMsg = parse(parsedMsg, UNIQ_ID, getUniqID());
 		parsedMsg = parse(parsedMsg, SECRET, getSecret());
+		parsedMsg = parse(parsedMsg, APP_PROVIDER_NAME, appProviderName);
+		parsedMsg = parse(parsedMsg, APP_PROVIDER_POLICY, appProviderPolicy);
+		parsedMsg = parse(parsedMsg, APP_CONSUMER_NAME, appConsumerName);
+		parsedMsg = parse(parsedMsg, APP_CONSUMER_POLICY, appConsumerPolicy);
+		parsedMsg = parse(parsedMsg, APP_PROCESSOR_NAME, appProcessorName);
+		parsedMsg = parse(parsedMsg, APP_PROCESSOR_POLICY, appProcessorPolicy);
 		return parsedMsg;
 	}
 
+	
 	private String addTrail(String responseMsg, String inputMsg) {
 
 		logger.debug("Converting to json: {}", responseMsg);
