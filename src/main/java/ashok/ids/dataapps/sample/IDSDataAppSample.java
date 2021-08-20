@@ -68,6 +68,19 @@ public class IDSDataAppSample extends CommonBase {
 	@Value("${msg.provider.audit.msg}")
 	private String msgProviderAuditMsg;
 
+	@Value("${user_id}")
+	private String user_id;
+	
+	@Value("${object_id}")
+	private String object_id;
+	
+	@Value("${activity_type}")
+	private String activity_type;
+	
+	@Value("${action}")
+	private String action;
+	
+	
 	private static final String APP_NAME = "\\$app.name";
 	private static final String APP_TYPE = "\\$app.type";
 
@@ -102,7 +115,11 @@ public class IDSDataAppSample extends CommonBase {
 	private static final String DATA_ENERGY_SAVING_RECOMMENDATION_INCENTIVE = "\\$data.energy.saving.recommendation.incentive";
 	private static final String DATA_TIME_INTERVEL = "\\$data.time.interval";
 	
-	
+	private static final String USER_ID = "\\$user_id";
+	private static final String OBJECT_ID = "\\$object_id";
+	private static final String ACTIVITY_TYPE = "\\$activity_type";
+	private static final String ACTION = "\\$action";
+
 	private static final String PROVIDER = "provider";
 	private static final String CONSUMER = "consumer";
 	private static final String PROCESSOR = "processor";
@@ -227,6 +244,11 @@ public class IDSDataAppSample extends CommonBase {
 		parsedMsg = parse(parsedMsg, APP_CONSUMER_POLICY, appConsumerPolicy);
 		parsedMsg = parse(parsedMsg, APP_PROCESSOR_NAME, appProcessorName);
 		parsedMsg = parse(parsedMsg, APP_PROCESSOR_POLICY, appProcessorPolicy);
+
+		parsedMsg = parse(parsedMsg, USER_ID, user_id);
+		parsedMsg = parse(parsedMsg, OBJECT_ID, object_id);
+		parsedMsg = parse(parsedMsg, ACTIVITY_TYPE, activity_type);
+		parsedMsg = parse(parsedMsg, ACTION, action);
 
 		parsedMsg = parse(parsedMsg, DATA_OPERATOR, dataGenerator.getOperator());
 		parsedMsg = parse(parsedMsg, DATA_TOWER_OPERATOR, dataGenerator.getTowerOperator());
