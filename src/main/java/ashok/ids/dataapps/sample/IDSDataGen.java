@@ -120,16 +120,16 @@ public class IDSDataGen extends CommonBase {
 	public String getSuccessfulCalls(String numberOfCallsReceived) {
 		int i_numberOfCallsReceived = Integer.parseInt(numberOfCallsReceived);
 		int i_successfulCallsPercentage = Integer.parseInt(getIndexInRange(successfulCalls));
-		int i_successfulCalls = i_numberOfCallsReceived / i_successfulCallsPercentage;
+		int i_successfulCalls = i_numberOfCallsReceived * i_successfulCallsPercentage / 100; 
 		return String.valueOf(i_successfulCalls);
 	}
 	
 	public String getNetworkSliceSelection() {
-		return networkSliceSelection.get(getIndex() % ranNumber.size());
+		return networkSliceSelection.get(getIndex() % networkSliceSelection.size());
 	}
 
 	public String getEnergySavingState() {
-		return energySavingState.get(getIndex() % ranNumber.size());
+		return energySavingState.get(getIndex() % energySavingState.size());
 	}
 	
 	public String getTimeInterval() {
@@ -142,11 +142,11 @@ public class IDSDataGen extends CommonBase {
 	}
 	
 	public String getEnergySavingRecommendation() {
-		return energySavingRecommendation.get(getIndex() % ranNumber.size());
+		return energySavingRecommendation.get(getIndex() % energySavingRecommendation.size());
 	}
 
 	public String getEnergySavingRecommendationResponse() {
-		return energySavingRecommendationResponse.get(getIndex() % ranNumber.size());
+		return energySavingRecommendationResponse.get(getIndex() % energySavingRecommendationResponse.size());
 	}
 	
 	public String getEnergySavingRecommendationIncentive() {

@@ -264,13 +264,18 @@ public class IDSDataAppSample extends CommonBase {
 		parsedMsg = parse(parsedMsg, DATA_UTILIZATION, dataGenerator.getUtilization());
 		parsedMsg = parse(parsedMsg, DATA_PACKET_DELAY, dataGenerator.getPacketDelay());
 		parsedMsg = parse(parsedMsg, DATA_RAN_INITIATED_PAGING, dataGenerator.getRanInitiatedPaging());
-		parsedMsg = parse(parsedMsg, DATA_NO_OF_CALLS_RECEIVED, dataGenerator.getNumberOfCallsReceived());
-		parsedMsg = parse(parsedMsg, DATA_SUCCESSFUL_CALLS, dataGenerator.getSuccessfulCalls(parsedMsg));
+		
+		String numberOfCallsReceived = dataGenerator.getNumberOfCallsReceived();
+		
+		parsedMsg = parse(parsedMsg, DATA_NO_OF_CALLS_RECEIVED, numberOfCallsReceived);
+		
+		parsedMsg = parse(parsedMsg, DATA_SUCCESSFUL_CALLS, dataGenerator.getSuccessfulCalls(numberOfCallsReceived));
+		
 		parsedMsg = parse(parsedMsg, DATA_NETWORK_SLICE_SELECTION, dataGenerator.getNetworkSliceSelection());
 		parsedMsg = parse(parsedMsg, DATA_ENERGY_SAVING_STATE, dataGenerator.getEnergySavingState());
-		parsedMsg = parse(parsedMsg, DATA_ENERGY_SAVING_RECOMMENDATION, dataGenerator.getEnergySavingRecommendation());
 		parsedMsg = parse(parsedMsg, DATA_ENERGY_SAVING_RECOMMENDATION_RESPONSE, dataGenerator.getEnergySavingRecommendationResponse());
 		parsedMsg = parse(parsedMsg, DATA_ENERGY_SAVING_RECOMMENDATION_INCENTIVE, dataGenerator.getEnergySavingRecommendationIncentive());
+		parsedMsg = parse(parsedMsg, DATA_ENERGY_SAVING_RECOMMENDATION, dataGenerator.getEnergySavingRecommendation());
 		parsedMsg = parse(parsedMsg, DATA_TIME_INTERVEL, dataGenerator.getTimeInterval());
 		
 		logger.info("ParseAll getTime:{}",getTime());

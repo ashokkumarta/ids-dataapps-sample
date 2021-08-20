@@ -187,7 +187,7 @@ public abstract class CommonBase {
 	}
 	
 	protected String getIndexInRange(String range) {
-		String[] minMax = range.split("-");
+		String[] minMax = range.split(":");
 		return String.valueOf(getIndex(Integer.parseInt(minMax[0]), Integer.parseInt(minMax[1])));
 	}
 }
