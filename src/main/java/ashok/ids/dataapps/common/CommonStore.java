@@ -17,6 +17,9 @@ public class CommonStore {
 		if (null == threadStore.get()) {
 			return CommonBase.EMPTY;
 		}
+		if (null == threadStore.get().get(name)) {
+			return CommonBase.EMPTY;
+		}
 		return threadStore.get().get(name);
 	}
 	

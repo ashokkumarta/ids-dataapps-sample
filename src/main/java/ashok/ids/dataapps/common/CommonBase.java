@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
@@ -158,7 +159,7 @@ public abstract class CommonBase {
 		}
 		return store.get(TIME);
 	}
-	
+
 	protected String getUniqID() {
 		if (EMPTY.equals(store.get(UNIQ_ID))) {
 			store.set(UNIQ_ID, UUID.randomUUID().toString());
@@ -171,5 +172,22 @@ public abstract class CommonBase {
 			store.set(SECRET, RandomStringUtils.randomAlphanumeric(256));
 		}
 		return store.get(SECRET);
+	}
+
+	protected void reset() {
+		store.reset();
+	}
+
+	protected int getIndex() {
+		return getIndex(0,99);
+	}
+	
+	protected int getIndex(int min, int max) {
+		return ThreadLocalRandom.current().nextInt(min, max + 1);
+	}
+	
+	protected String getIndexInRange(String range) {
+		String[] minMax = range.split("-");
+		return String.valueOf(getIndex(Integer.parseInt(minMax[0]), Integer.parseInt(minMax[1])));
 	}
 }
