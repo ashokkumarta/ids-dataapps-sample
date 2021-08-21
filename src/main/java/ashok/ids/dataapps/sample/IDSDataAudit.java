@@ -30,7 +30,7 @@ public class IDSDataAudit extends CommonBase {
 
 	public void audit(String data) throws IOException {
 
-		logger.info("Sending for audit: {}", data);
+		logger.info("Posting to activity stream: {}", data);
 
 		HttpPost post = new HttpPost(auditUrl);
 		post.setHeader(HttpHeaders.CONTENT_TYPE, CONTENT_TYPE);
@@ -38,16 +38,14 @@ public class IDSDataAudit extends CommonBase {
 
 		post.setEntity(new StringEntity(data));
 
-		logger.info("Audit post: {}", post);
+		logger.debug("Audit post: {}", post);
 
 		try (CloseableHttpClient httpClient = HttpClients.createDefault();
 				CloseableHttpResponse response = httpClient.execute(post)) {
 
 			String result = EntityUtils.toString(response.getEntity());
-			logger.info("Audit result: {}", result);
+			logger.debug("Audit result: {}", result);
+			logger.info("Posting to activity stream successful");
 		}
-
-
-		logger.info("Audit successful for: {}", data);
 	}
 }

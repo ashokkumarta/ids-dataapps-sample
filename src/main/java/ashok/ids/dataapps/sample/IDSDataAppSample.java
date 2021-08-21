@@ -146,7 +146,7 @@ public class IDSDataAppSample extends CommonBase {
 		}
 
 		String path = request.getRequestURI();
-		logger.debug("Received request for: {}", path);
+		logger.info("Processing the request for: {}", path);
 		
 		String msgResponse = parseAll(msgProvider);
 		if(msgProviderAudit) {
@@ -159,6 +159,7 @@ public class IDSDataAppSample extends CommonBase {
 		}
 
 		reset();
+		logger.info("Successful completion of request for: {}", path);
 		return ok(msgResponse);
 	}
 
@@ -228,10 +229,10 @@ public class IDSDataAppSample extends CommonBase {
 
 	private String parseAll(final String msgTpl) {
 		
-		logger.info("ParseAll msgTpl:{}",msgTpl);
-		logger.info("ParseAll getUniqID:{}",getUniqID());
-		logger.info("ParseAll getSecret:{}",getSecret());
-		logger.info("ParseAll getTime:{}",getTime());
+		logger.debug("ParseAll msgTpl:{}",msgTpl);
+		logger.debug("ParseAll getUniqID:{}",getUniqID());
+		logger.debug("ParseAll getSecret:{}",getSecret());
+		logger.debug("ParseAll getTime:{}",getTime());
 
 		String parsedMsg = parse(msgTpl, APP_NAME, appName);
 		parsedMsg = parse(parsedMsg, APP_TYPE, appType);
@@ -278,9 +279,9 @@ public class IDSDataAppSample extends CommonBase {
 		parsedMsg = parse(parsedMsg, DATA_ENERGY_SAVING_RECOMMENDATION, dataGenerator.getEnergySavingRecommendation());
 		parsedMsg = parse(parsedMsg, DATA_TIME_INTERVEL, dataGenerator.getTimeInterval());
 		
-		logger.info("ParseAll getTime:{}",getTime());
-		logger.info("ParseAll getUniqID:{}",getUniqID());
-		logger.info("ParseAll getSecret:{}",getSecret());
+		logger.debug("ParseAll getTime:{}",getTime());
+		logger.debug("ParseAll getUniqID:{}",getUniqID());
+		logger.debug("ParseAll getSecret:{}",getSecret());
 		
 		return parsedMsg;
 	}
